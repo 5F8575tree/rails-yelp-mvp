@@ -1,16 +1,26 @@
-<h1>Restaurant: <%= @restaurant.name %></h1>
-<%= link_to "Back to restaurants", restaurants_path %>
-<%= link_to "Rate this restaurant", new_restaurant_review_path(@restaurant) %>
+<div class="container">
+  <h1>Restaurant: <%= @restaurant.name %></h1>
+  <%= link_to "Back to restaurants", restaurants_path %>
+  <%= link_to "Rate this restaurant", new_restaurant_review_path(@restaurant) %>
 
-<p><strong>Reviews</strong></p>
-<ul class="list-group">
-	<% if @restaurant.reviews.any? %>
-		<% @restaurant.reviews.each do |review| %>
-			<li class="list-group-item"><%= review.content %></li>
-      <li class="list-group-item"><%= review.rating %><li>
-		<% end %>
-	<% else %>
-		<li><%= link_to "Be the first to review", new_restaurant_review_path(@restaurant) %></li>
-	<% end %>
-</ul>
-<br>
+  <p><strong>Reviews</strong></p>
+  <ul class="list-group">
+    <% if @restaurant.reviews.any? %>
+      <% @restaurant.reviews.each do |review| %>
+        <div class="d-flex">
+          <li class="list-group-item"><%= review.content %>
+            <% review.rating.times do %>
+              <i class="fas fa-star"></i>
+            <% end %>
+            <% (5 - review.rating).times do %>
+              <i class="far fa-star"></i>
+            <% end %>
+          </li>
+        </div>
+      <% end %>
+    <% else %>
+      <li><%= link_to "Be the first to review", new_restaurant_review_path(@restaurant) %></li>
+    <% end %>
+  </ul>
+  <br>
+</div>
